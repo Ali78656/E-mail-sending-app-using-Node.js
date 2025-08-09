@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Email History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/public/styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">E‑mail Sender Application</div>
+        <nav class="nav">
+          <a href="/">Compose</a>
+          <a href="/history">History</a>
+          <button
+            type="button"
+            class="btn theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <span class="icon icon-sun">☀️</span>
+            <span class="icon icon-moon">🌙</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Sent Emails</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Error</th>
+                <th>When</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (const row of logs) { %>
+              <tr>
+                <td><%= row._id %></td>
+                <td><%= row.toEmail %></td>
+                <td><%= row.subject %></td>
+                <td>
+                  <span class="status-<%= row.status %>"
+                    ><%= row.status %></span
+                  >
+                </td>
+                <td><%= row.error || '' %></td>
+                <td><%= row.createdAt %></td>
+                <td><a href="/history/<%= row._id %>">View</a></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const key = "theme";
+        const saved = localStorage.getItem(key);
+        if (saved === "light" || saved === "dark") {
+          if (saved === "light") root.setAttribute("data-theme", "light");
+          else root.removeAttribute("data-theme");
+        }
+        const btn = document.getElementById("themeToggle");
+        btn.addEventListener("click", function () {
+          const isLight = root.getAttribute("data-theme") === "light";
+          if (isLight) {
+            root.removeAttribute("data-theme");
+            localStorage.setItem(key, "dark");
+          } else {
+            root.setAttribute("data-theme", "light");
+            localStorage.setItem(key, "light");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

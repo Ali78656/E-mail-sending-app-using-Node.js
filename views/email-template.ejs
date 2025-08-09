@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #f3f4f6;
+      }
+      .wrapper {
+        width: 100%;
+        table-layout: fixed;
+        background-color: #f3f4f6;
+        padding: 24px 0;
+      }
+      .main {
+        background: #ffffff;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .header {
+        background: #111827;
+        color: #ffffff;
+        padding: 24px;
+        font-family: Arial, sans-serif;
+      }
+      .content {
+        padding: 24px;
+        font-family: Arial, sans-serif;
+        color: #111827;
+      }
+      .footer {
+        padding: 16px 24px;
+        font-family: Arial, sans-serif;
+        color: #6b7280;
+        font-size: 12px;
+        text-align: center;
+      }
+      a {
+        color: #2563eb;
+      }
+      .btn {
+        display: inline-block;
+        background: #2563eb;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <table class="main" cellspacing="0" cellpadding="0" role="presentation">
+        <tr>
+          <td class="header">
+            <h2>Hi <%= name %>,</h2>
+          </td>
+        </tr>
+        <tr>
+          <td class="content">
+            <p><%= message %></p>
+
+            <p style="margin-top: 24px">Thanks,<br />The Team</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="footer">
+            You received this email from our Node.js mailer demo.
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

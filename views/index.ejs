@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Email Sender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/public/styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">E‑mail Sender Application</div>
+        <nav class="nav">
+          <a href="/">Compose</a>
+          <a href="/history">History</a>
+          <button
+            type="button"
+            class="btn theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <span class="icon icon-sun">☀️</span>
+            <span class="icon icon-moon">🌙</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Compose</h2>
+
+          <div class="alerts">
+            <% if (sent) { %>
+            <div class="alert success"><%= sent %></div>
+            <% } %> <% if (error) { %>
+            <div class="alert error"><%= error %></div>
+            <% } %>
+          </div>
+
+          <form
+            action="/send"
+            method="post"
+            enctype="multipart/form-data"
+            class="grid"
+          >
+            <div>
+              <label>To (comma-separated)</label>
+              <input
+                type="text"
+                name="to"
+                placeholder="user@example.com, another@example.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label>Subject</label>
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                required
+              />
+            </div>
+
+            <div>
+              <label>Message</label>
+              <textarea
+                name="message"
+                placeholder="Write your message..."
+              ></textarea>
+            </div>
+
+            <div>
+              <label>Attachments (up to 5 files)</label>
+              <input class="file" type="file" name="attachments" multiple />
+            </div>
+
+            <div>
+              <button class="btn" type="submit">Send Email</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const key = "theme";
+        const saved = localStorage.getItem(key);
+        if (saved === "light" || saved === "dark") {
+          if (saved === "light") root.setAttribute("data-theme", "light");
+          else root.removeAttribute("data-theme");
+        }
+        const btn = document.getElementById("themeToggle");
+        btn.addEventListener("click", function () {
+          const isLight = root.getAttribute("data-theme") === "light";
+          if (isLight) {
+            root.removeAttribute("data-theme");
+            localStorage.setItem(key, "dark");
+          } else {
+            root.setAttribute("data-theme", "light");
+            localStorage.setItem(key, "light");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

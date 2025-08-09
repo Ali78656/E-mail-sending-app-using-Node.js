@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Email Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/public/styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">E‑mail Sender Application</div>
+        <nav class="nav">
+          <a href="/">Compose</a>
+          <a href="/history">History</a>
+          <button
+            type="button"
+            class="btn theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <span class="icon icon-sun">☀️</span>
+            <span class="icon icon-moon">🌙</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Email #<%= log._id %></h2>
+          <div class="meta">
+            <p><span class="muted">To:</span> <br /><%= log.toEmail %></p>
+            <p><span class="muted">Subject:</span> <br /><%= log.subject %></p>
+            <p>
+              <span class="muted">Status:</span> <br /><span
+                class="badge <%= log.status === 'SENT' ? 'badge-success' : 'badge-failed' %>"
+                ><%= log.status %></span
+              >
+            </p>
+            <p>
+              <span class="muted">Created:</span> <br /><%= log.createdAt %>
+            </p>
+          </div>
+
+          <div style="margin-top: 16px">
+            <p class="muted">Error</p>
+            <div class="card" style="background: transparent">
+              <div class="card-body"><%= log.error || 'None' %></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px">
+            <p class="muted">Attachments</p>
+            <ul class="list">
+              <% for (const a of attachments) { %>
+              <li><%= a.filename %> (<%= a.path %>)</li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const key = "theme";
+        const saved = localStorage.getItem(key);
+        if (saved === "light" || saved === "dark") {
+          if (saved === "light") root.setAttribute("data-theme", "light");
+          else root.removeAttribute("data-theme");
+        }
+        const btn = document.getElementById("themeToggle");
+        btn.addEventListener("click", function () {
+          const isLight = root.getAttribute("data-theme") === "light";
+          if (isLight) {
+            root.removeAttribute("data-theme");
+            localStorage.setItem(key, "dark");
+          } else {
+            root.setAttribute("data-theme", "light");
+            localStorage.setItem(key, "light");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
