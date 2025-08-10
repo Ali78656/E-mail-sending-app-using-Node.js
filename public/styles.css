@@ -194,12 +194,13 @@ textarea {
   height: 18px;
   display: none;
 }
-/* Default (dark or unspecified): show moon only */
-:root:not([data-theme="light"]) .icon-moon {
+/* Invert icons per your request */
+/* Light mode: show moon */
+:root[data-theme="light"] .icon-moon {
   display: inline-block;
 }
-/* Light theme: show sun only */
-:root[data-theme="light"] .icon-sun {
+/* Dark or unspecified: show sun */
+:root:not([data-theme="light"]) .icon-sun {
   display: inline-block;
 }
 
