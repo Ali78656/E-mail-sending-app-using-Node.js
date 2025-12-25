@@ -282,3 +282,25 @@ tbody tr:hover {
 .list li {
   margin: 6px 0;
 }
+
+.scroll-to-top-btn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 20px; /* Place the button at the right of the page */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: var(--primary); /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+  transition: opacity 0.3s; /* Smooth transition for fading */
+  opacity: 0.7;
+}
+
+.scroll-to-top-btn:hover {
+  opacity: 1; /* Full opacity on hover */
+}
