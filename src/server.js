@@ -72,6 +72,27 @@ app.get("/history/:id", async (req, res) => {
   res.render("history-detail", { log, attachments: log.attachments || [] });
 });
 
+app.post("/history/:id/delete", async (req, res, next) => {
+  try {
+    const log = await EmailLog.findByIdAndDelete(req.params.id).lean();
+    if (!log) return res.status(404).send("Not found");
+
+    // Best-effort cleanup for uploaded attachment files.
+    for (const attachment of log.attachments || []) {
+      if (!attachment.path) continue;
+      try {
+        if (fs.existsSync(attachment.path)) fs.unlinkSync(attachment.path);
+      } catch (fileErr) {
+        console.warn("Attachment cleanup failed:", fileErr.message);
+      }
+    }
+
+    res.redirect("/history");
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post("/send", upload.array("attachments", 5), async (req, res) => {
   const { to, subject, message, name } = req.body;
   if (!to || !subject) {

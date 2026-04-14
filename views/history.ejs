@@ -38,7 +38,23 @@
                 </td>
                 <td><%= row.error || '' %></td>
                 <td><%= row.createdAt %></td>
-                <td><a href="/history/<%= row._id %>">View</a></td>
+                <td style="display: flex; gap: 8px; align-items: center">
+                  <a href="/history/<%= row._id %>">View</a>
+                  <form
+                    action="/history/<%= row._id %>/delete"
+                    method="post"
+                    onsubmit="return confirm('Delete this email history entry?');"
+                    style="margin: 0"
+                  >
+                    <button
+                      type="submit"
+                      class="btn btn-ghost"
+                      style="padding: 6px 10px"
+                    >
+                      Delete
+                    </button>
+                  </form>
+                </td>
               </tr>
               <% } %>
             </tbody>
